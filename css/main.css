@@ -1,0 +1,126 @@
+body {
+  font-family: "Typewriter", monospace;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  padding-left: 64px;
+  padding-right: 64px;
+}
+
+.column.left {
+  order: 1;
+  flex: 75;
+}
+
+.column.right {
+  order: 2;
+  flex: 25;
+  padding-top: 64px;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+}
+
+.section-spacing {
+  height: 64px;
+}
+
+
+.image-container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.image-label {
+  width: 100%;
+  font-size: 16px;
+  text-align: left;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: normal;
+  width: 90%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 40px 0px 80px 0px;
+}
+
+h2 span {
+  background: #ffffff;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: normal;
+  width: 100%;
+  text-align: center;
+  background: #eeeeee;
+}
+
+h3.active {
+  background: #666666;
+  color: #ffffff;
+}
+
+h3 span {
+  padding: 0 10px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .column.left {
+    width: 100%;
+    order: 2;
+  }
+  .column.right {
+    width: 100%;
+    order: 1;
+    padding-top: 16px;
+    text-align: center;
+    position: static;
+  }
+  .section-spacing {
+    height: 16px;
+  }
+  .image-container {
+    width: 100%;
+  }
+  .image-label {
+    font-size: 14px;
+  }
+  h2 {
+    width: 100%;
+  }
+  h3 {
+    width: 100%;
+  }
+}
