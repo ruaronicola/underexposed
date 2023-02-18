@@ -80,6 +80,10 @@ all_photos = glob("archive/**/**.jpg", recursive=True)
 sections = defaultdict(list)
 
 for path in all_photos:
+    if path.split("/")[-1].startswith("_"):
+        print(f"ERROR: Found a filename starting with an \"_\". Please fix that: {path}")
+        exit(1)
+
     exif = {
         ExifTags.TAGS[k]: v
         for k, v in Image.open(path)._getexif().items()
@@ -114,4 +118,6 @@ sections_html += SECTION_TEMPLATE.format(year=min(sections)-1, photos='')
 
 template = TEMPLATE.format(nav_items=navs_html, sections=sections_html)
 
-print(template)
+with open("./index.html", "w") as f:
+    f.write(template)
+
