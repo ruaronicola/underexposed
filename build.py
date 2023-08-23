@@ -113,8 +113,8 @@ for year in sorted(sections, reverse=True):
     navs_html += NAV_ITEM_TEMPLATE.format(year=year)
     sections_html += SECTION_TEMPLATE.format(year=year, photos=''.join(sections[year]))
 
-navs_html += NAV_ITEM_TEMPLATE.format(year=min(sections)-1)
-sections_html += SECTION_TEMPLATE.format(year=min(sections)-1, photos='')
+# navs_html += NAV_ITEM_TEMPLATE.format(year=min(sections)-1)
+# sections_html += SECTION_TEMPLATE.format(year=min(sections)-1, photos='')
 
 template = TEMPLATE.format(nav_items=navs_html, sections=sections_html)
 
