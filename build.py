@@ -26,7 +26,6 @@ TEMPLATE = """
   <head>
     <title>underexposed</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body>
@@ -49,7 +48,6 @@ TEMPLATE = """
     </div>
 
   </body>
-  <script type="text/javascript" src="js/main.js"></script>
 </html>
 
 """
@@ -69,7 +67,7 @@ SECTION_TEMPLATE = """
 
 PHOTO_TEMPLATE = """
           <div class="image-container">
-            <img src="./{path}" width="2048" height="1365">
+            <img src="./{path}" width="2048" height="1365" loading="lazy">
             <p class="image-label">{date}. {dof}mm f/{f} 1/{shutter}s ISO {iso}.</p><br><br>
           </div>
 """
