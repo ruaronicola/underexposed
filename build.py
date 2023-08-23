@@ -69,7 +69,7 @@ SECTION_TEMPLATE = """
 
 PHOTO_TEMPLATE = """
           <div class="image-container">
-            <img src="./{path}">
+            <img src="./{path}" width="2048" height="1365">
             <p class="image-label">{date}. {dof}mm f/{f} 1/{shutter}s ISO {iso}.</p><br><br>
           </div>
 """
