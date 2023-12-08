@@ -98,7 +98,7 @@ for path in all_photos:
     if exif['ExposureTime'] < 1:
         shutter = f"1/{1/exif['ExposureTime']}"
     else:
-        shutter = f"{exif['ExposureTime']}"
+        shutter = int(round(exif["ExposureTime"]))
 
     iso = exif["ISOSpeedRatings"]
 
