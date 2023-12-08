@@ -68,7 +68,7 @@ SECTION_TEMPLATE = """
 PHOTO_TEMPLATE = """
           <div class="image-container">
             <img src="./{path}" width="2048" height="1365" loading="lazy">
-            <p class="image-label">{date}. {dof}mm f/{f} 1/{shutter}s ISO {iso}.</p><br><br>
+            <p class="image-label">{date}. {dof}mm f/{f} {shutter}s ISO {iso}.</p><br><br>
           </div>
 """
 
@@ -95,7 +95,10 @@ for path in all_photos:
 
     f = exif["FNumber"]
 
-    shutter = f"{1/exif['ExposureTime']}"
+    if exif['ExposureTime'] < 1:
+        shutter = f"1/{1/exif['ExposureTime']}"
+    else:
+        shutter = f"{exif['ExposureTime']}"
 
     iso = exif["ISOSpeedRatings"]
 
