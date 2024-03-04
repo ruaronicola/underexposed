@@ -11,6 +11,7 @@ body {
 }
 
 .column.left {
+  position: relative;
   order: 1;
   flex: 75;
 }
@@ -91,6 +92,26 @@ h3 span {
 a {
   color: black;
   text-decoration: none;
+}
+
+/* Hide all section elements by default */
+section {
+  display: none;
+}
+
+/* When a section element is targeted, show it */
+section:target {
+  display: block;
+}
+
+/* Show .fallback by default */
+.fallback {
+  display: block;
+}
+
+/* Hide .fallback when another section is targeted */
+section:target ~ .fallback {
+  display: none;
 }
 
 @media screen and (max-width: 768px) {

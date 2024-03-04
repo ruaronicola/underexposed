@@ -57,7 +57,7 @@ NAV_ITEM_TEMPLATE = """
 """
 
 SECTION_TEMPLATE = """
-        <section id="{year}">
+        <section id="{year}" class="{_class}">
           <div class="section-spacing"></div>
           <h2><span>{year}</span></h2>
 {photos}
@@ -112,7 +112,10 @@ for year in sorted(sections, reverse=True):
     sections[year] = [s[1] for s in sorted(sections[year], key=lambda e: e[0], reverse=True)]
 
     navs_html += NAV_ITEM_TEMPLATE.format(year=year)
-    sections_html += SECTION_TEMPLATE.format(year=year, photos=''.join(sections[year]))
+    sections_html += SECTION_TEMPLATE.format(year=year, _class="", photos=''.join(sections[year]))
+
+# duplicate most recent year as fallback (shown by default on page load)
+sections_html += SECTION_TEMPLATE.format(year=max(sections), _class="fallback", photos=''.join(sections[max(sections)]))
 
 # navs_html += NAV_ITEM_TEMPLATE.format(year=min(sections)-1)
 # sections_html += SECTION_TEMPLATE.format(year=min(sections)-1, photos='')
