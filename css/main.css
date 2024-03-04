@@ -26,8 +26,8 @@ body {
   align-self: flex-start;
 }
 
-.section-spacing {
-  height: 64px;
+.container-spacing {
+  height: 96px;
 }
 
 
@@ -94,23 +94,23 @@ a {
   text-decoration: none;
 }
 
-/* Hide all section elements by default */
-section {
+/* Hide all container elements by default */
+.container {
   display: none;
 }
 
-/* When a section element is targeted, show it */
-section:target {
-  display: block;
+/* When a .container element is targeted, show it */
+.container:target {
+  display: flex;
 }
 
 /* Show .fallback by default */
 .fallback {
-  display: block;
+  display: flex;
 }
 
-/* Hide .fallback when another section is targeted */
-section:target ~ .fallback {
+/* Hide .fallback when another .container is targeted */
+.container:target ~ .fallback {
   display: none;
 }
 
@@ -131,8 +131,8 @@ section:target ~ .fallback {
     text-align: center;
     position: static;
   }
-  .section-spacing {
-    height: 16px;
+  .container-spacing {
+    height: 24px;
   }
   .image-container {
     width: 100%;

@@ -29,40 +29,32 @@ TEMPLATE = """
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body>
-    <div class="container" autofocus>
-      <div class="column right">
-        <h1>UNDEREXPOSED</h1><br>
-        <p>Hi there! I'm Nicola, a PhD student from UC Santa Barbara. <br><br>I recently picked up the hobby of photography. This page is a place to collect my latest photos.</p><br><br>
-        <nav>
-{nav_items}
-        </nav>
-      <!-- END DIV COLUMN RIGHT -->
-      </div>
-
-      <div class="column left">
-{sections}
-      <!-- END DIV COLUMN LEFT -->
-      </div>
-
-    <!-- END DIV CONTAINER -->
-    </div>
-
+{containers}
   </body>
 </html>
-
 """
 
 NAV_ITEM_TEMPLATE = """
-          <a href="#{year}" id="nav-{year}"><h3><span>{year}</span></h3></a>
-"""
+            <a href="#{year}" id="nav-{year}"><h3 class="{_class}"><span>{year}</span></h3></a>"""
 
-SECTION_TEMPLATE = """
-        <section id="{year}" class="{_class}">
-          <div class="section-spacing"></div>
-          <h2><span>{year}</span></h2>
+CONTAINER_TEMPLATE = """
+      <div id="{year}" class="container {_class}">
+        <div class="column right">
+          <h1>UNDEREXPOSED</h1><br>
+          <p>Hi there! I'm Nicola, a PhD student from UC Santa Barbara. <br><br>I recently picked up the hobby of photography. This page is a place to collect my latest photos.</p><br><br>
+          <nav>
+  {nav_items}
+          </nav>
+        <!-- END DIV COLUMN RIGHT -->
+        </div>
+
+        <div class="column left">
+          <div class="container-spacing"></div>
 {photos}
-        <!-- END SECTION {year} -->
-        </section>
+        <!-- END DIV COLUMN LEFT -->
+        </div>
+      <!-- END CONTAINER {year} -->
+      </div>
 """
 
 PHOTO_TEMPLATE = """
@@ -75,7 +67,7 @@ PHOTO_TEMPLATE = """
 
 all_photos = glob("archive/**/**.jpg", recursive=True)
 
-sections = defaultdict(list)
+containers = defaultdict(list)
 
 for path in all_photos:
     if path.split("/")[-1].startswith("_"):
@@ -104,23 +96,20 @@ for path in all_photos:
 
     photo_html = PHOTO_TEMPLATE.format(path=path, date=date, dof=dof, f=f, shutter=shutter, iso=iso)
 
-    sections[int(year)].append((exif["DateTimeOriginal"], photo_html))
+    containers[int(year)].append((exif["DateTimeOriginal"], photo_html))
 
-navs_html = ""
-sections_html = ""
-for year in sorted(sections, reverse=True):
-    sections[year] = [s[1] for s in sorted(sections[year], key=lambda e: e[0], reverse=True)]
-
-    navs_html += NAV_ITEM_TEMPLATE.format(year=year)
-    sections_html += SECTION_TEMPLATE.format(year=year, _class="", photos=''.join(sections[year]))
+containers_html = ""
+for year in sorted(containers, reverse=True):
+    containers[year] = [s[1] for s in sorted(containers[year], key=lambda e: e[0], reverse=True)]
+    navs_html = "".join([NAV_ITEM_TEMPLATE.format(year=y, _class="active" if y==year else "") for y in sorted(containers, reverse=True)])
+    containers_html += CONTAINER_TEMPLATE.format(year=year, _class="", nav_items=navs_html, photos=''.join(containers[year]))
 
 # duplicate most recent year as fallback (shown by default on page load)
-sections_html += SECTION_TEMPLATE.format(year=max(sections), _class="fallback", photos=''.join(sections[max(sections)]))
+fallback_year = max(containers)  
+navs_html = "".join([NAV_ITEM_TEMPLATE.format(year=y, _class="active" if y==fallback_year else "") for y in sorted(containers, reverse=True)])
+containers_html += CONTAINER_TEMPLATE.format(year=fallback_year, _class="fallback", nav_items=navs_html, photos=''.join(containers[fallback_year]))
 
-# navs_html += NAV_ITEM_TEMPLATE.format(year=min(sections)-1)
-# sections_html += SECTION_TEMPLATE.format(year=min(sections)-1, photos='')
-
-template = TEMPLATE.format(nav_items=navs_html, sections=sections_html)
+template = TEMPLATE.format(containers=containers_html)
 
 with open("./index.html", "w") as f:
     f.write(template)
