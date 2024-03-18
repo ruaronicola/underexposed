@@ -22,13 +22,18 @@ MONTHS = {
 
 TEMPLATE = """
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang=en-US>
   <head>
     <title>underexposed</title>
+    <meta name="description" content="I'm Nicola, a PhD student from UC Santa Barbara. I recently picked up the hobby of photography. This page is a place to collect my latest photos.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="favicon.ico">
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
   </head>
   <body>
 {containers}
@@ -37,7 +42,7 @@ TEMPLATE = """
 """
 
 NAV_ITEM_TEMPLATE = """
-            <a href="#{year}" id="nav-{year}"><h3 class="{_class}"><span>{year}</span></h3></a>"""
+            <a href="#{year}" id="nav-{year}"><h2 class="{_class}"><span>{year}</span></h2></a>"""
 
 CONTAINER_TEMPLATE = """
       <div id="{year}" class="container {_class}">
@@ -61,7 +66,7 @@ CONTAINER_TEMPLATE = """
 
 PHOTO_TEMPLATE = """
           <div class="image-container">
-            <img src="./{path}" width="2048" height="1365" loading="lazy">
+            <img src="./{path}" width="2048" height="1365" loading="lazy" alt="{date}. {dof}mm f/{f} {shutter}s ISO {iso}">
             <p class="image-label">{date}. {dof}mm f/{f} {shutter}s ISO {iso}.</p><br><br>
           </div>
 """
